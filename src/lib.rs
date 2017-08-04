@@ -35,7 +35,12 @@ impl BitArray {
     }
 
     pub fn get(&self, n: u64) -> bool {
-        false
+        let b = self.words & (1 << n);
+
+        match b {
+            0 => false,
+            _ => true,
+        }
     }
 
     pub fn flip(&mut self, n: u64) {
@@ -297,6 +302,7 @@ mod tests {
             assert_eq!(a.as_number(), t.expect);
         }
     }
+
     #[test]
     fn get() {
         struct TestCase {
@@ -333,8 +339,14 @@ mod tests {
                                             expect: true,
                                         }];
 
+        let mut a = BitArray::new();
+        a.set(0, true)
+            .set(2, true)
+            .set(4, true)
+            .set(5, true)
+            .set(6, true);
+
         for t in testcases.iter() {
-            let mut a = BitArray::new();
             let b = a.get(t.input);
             assert_eq!(b, t.expect);
         }
