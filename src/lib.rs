@@ -22,7 +22,7 @@ impl BitArray {
     }
 
     pub fn as_string(&self) -> String {
-        "".to_string()
+        format!("{:b}", self.words)
     }
 
     pub fn set(&mut self, n: u64, b: bool) -> &mut BitArray {
