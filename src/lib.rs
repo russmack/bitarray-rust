@@ -26,6 +26,11 @@ impl BitArray {
     }
 
     pub fn set(&mut self, n: u64, b: bool) -> &mut BitArray {
+        if b {
+            self.words |= 1 << n;
+        } else {
+            self.words &= !(1 << n);
+        }
         self
     }
 
