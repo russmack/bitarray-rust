@@ -44,7 +44,7 @@ impl BitArray {
     }
 
     pub fn flip(&mut self, n: u64) {
-        //
+        self.words ^= 1 << n;
     }
 }
 
