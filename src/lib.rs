@@ -18,7 +18,22 @@ impl BitArray {
     }
 
     pub fn from_binary(&mut self, s: &str) {
-        //
+        let mut b: u64 = 0;
+
+        let mut i = 0;
+        for c in s.as_bytes().iter() {
+            if i > 0 {
+                b = b << 1;
+            }
+
+            if c == &49 {
+                b |= 1
+            }
+
+            i += 1;
+        }
+
+        self.words = b;
     }
 
     pub fn as_string(&self) -> String {
