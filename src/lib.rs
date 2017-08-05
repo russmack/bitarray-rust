@@ -18,23 +18,48 @@ impl BitArray {
     }
 
     pub fn from_binary(&mut self, s: &str) {
-        //
+        let mut b: u64 = 0;
+
+        let mut i = 0;
+        for c in s.as_bytes().iter() {
+            if i > 0 {
+                b = b << 1;
+            }
+
+            if c == &49 {
+                b |= 1
+            }
+
+            i += 1;
+        }
+
+        self.words = b;
     }
 
     pub fn as_string(&self) -> String {
-        "".to_string()
+        format!("{:b}", self.words)
     }
 
     pub fn set(&mut self, n: u64, b: bool) -> &mut BitArray {
+        if b {
+            self.words |= 1 << n;
+        } else {
+            self.words &= !(1 << n);
+        }
         self
     }
 
     pub fn get(&self, n: u64) -> bool {
-        false
+        let b = self.words & (1 << n);
+
+        match b {
+            0 => false,
+            _ => true,
+        }
     }
 
     pub fn flip(&mut self, n: u64) {
-        //
+        self.words ^= 1 << n;
     }
 }
 
@@ -292,6 +317,7 @@ mod tests {
             assert_eq!(a.as_number(), t.expect);
         }
     }
+
     #[test]
     fn get() {
         struct TestCase {
@@ -328,8 +354,14 @@ mod tests {
                                             expect: true,
                                         }];
 
+        let mut a = BitArray::new();
+        a.set(0, true)
+            .set(2, true)
+            .set(4, true)
+            .set(5, true)
+            .set(6, true);
+
         for t in testcases.iter() {
-            let mut a = BitArray::new();
             let b = a.get(t.input);
             assert_eq!(b, t.expect);
         }
