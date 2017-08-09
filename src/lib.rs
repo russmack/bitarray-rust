@@ -9,6 +9,10 @@ impl BitArray {
         return BitArray { words: 0 };
     }
 
+    pub fn size(&self) -> u64 {
+        return (self.words.count_zeros() + self.words.count_ones()) as u64;
+    }
+
     pub fn as_number(&self) -> u64 {
         return self.words;
     }
