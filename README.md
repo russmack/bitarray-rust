@@ -9,9 +9,7 @@ A bit array for Rust.
 ----
 
 ## Usage
-```
 See https://github.com/russmack/bloominrustyfilter
-```
 
 ## License
 BSD 3-Clause: [LICENSE.txt](LICENSE.txt)
